@@ -12,7 +12,7 @@
 #' also available
 #' @param user_agent `character` of the user agent
 #'
-#' @return A list of class [osrs_api]
+#' @return A list of class `osrs_api`
 #'
 #' @export
 #'

@@ -7,15 +7,15 @@
 osrs_api(item, history = "latest", user_agent = "GE_price_tracker")
 }
 \arguments{
-\item{item}{\code{character} name of the item}
+\item{item}{\code{character} name of the \emph{item}}
 
-\item{history}{`character` [mean()] with type of request. Default is "latest", but "all" is
+\item{history}{\code{character} with type of request. Default is "latest", but "all" is
 also available}
 
-\item{user_agent}{`character` of the user agent}
+\item{user_agent}{\code{character} of the user agent}
 }
 \value{
-A list of class [osrs_api]
+A list of class \code{osrs_api}
 }
 \description{
 Use the Weird Gloop API to fetch information about Grand Exchange prices in

@@ -7,7 +7,7 @@
 \method{print}{osrs_api}(x, ...)
 }
 \arguments{
-\item{x}{object of class `osrs_api`}
+\item{x}{object of class \code{osrs_api}}
 
 \item{...}{additional arguments passed to methods}
 }
