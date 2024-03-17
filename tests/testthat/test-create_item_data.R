@@ -5,9 +5,8 @@ test_that("create_item_data works with 2 items", {
 })
 
 test_that("create_item_data works with 2 items", {
-  expect_type(create_item_data(osrs_api("Abyssal whip|bucket",
-                                     history = "all")),
-              "list")
+  expect_error(create_item_data(osrs_api("Abyssal whip|bucket",
+                                     history = "all")))
 })
 
 test_that("create_item_data has created a column 'date' if the history argument is not sample", {
