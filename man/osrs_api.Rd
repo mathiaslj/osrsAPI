@@ -4,10 +4,10 @@
 \alias{osrs_api}
 \title{Get information about Grand Exchange prices of items in OSRS}
 \usage{
-osrs_api(item, history = "latest", user_agent = "GE_price_tracker")
+osrs_api(items, history = "latest", user_agent = "GE_price_tracker")
 }
 \arguments{
-\item{item}{\code{character} name of the \emph{item}}
+\item{items}{\code{character} vector of the items}
 
 \item{history}{\code{character} with type of request. Default is "latest", but "all" is
 also available}
@@ -22,5 +22,10 @@ Use the Weird Gloop API to fetch information about Grand Exchange prices in
 Oldschool Runescape
 }
 \examples{
-osrs_api(item = "Abyssal_whip", history = "latest")
+# Get the latest prices of both a bucket and the abyssal whip
+bucket_and_whip <- osrs_api(items = c("bucket", "Abyssal whip"), history = "latest")
+
+# Get the entire price history of the abyssal whip
+whip <- osrs_api(items = "Abyssal_whip", history = "all")
+
 }

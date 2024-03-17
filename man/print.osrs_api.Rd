@@ -15,6 +15,6 @@
 Print method for class
 }
 \examples{
-whip <- osrs_api(item = "Abyssal_whip", history = "latest")
+whip <- osrs_api(items = "Abyssal_whip", history = "latest")
 print(whip)
 }
