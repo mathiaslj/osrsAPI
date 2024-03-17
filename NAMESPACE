@@ -3,6 +3,7 @@
 S3method(print,osrs_api)
 export(create_item_data)
 export(osrs_api)
+importFrom(dplyr,bind_rows)
 importFrom(httr,GET)
 importFrom(jsonlite,fromJSON)
 importFrom(stringr,str_to_sentence)

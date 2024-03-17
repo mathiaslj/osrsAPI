@@ -22,7 +22,7 @@ create_item_data <- function(.x) {
   contents <- .x$content
 
   item_data <- lapply(contents, function(x) dplyr::bind_rows(x)) |>
-    bind_rows(.id = "item")
+    dplyr::bind_rows(.id = "item")
 
   # If we have not gotten just a sample, give the relative day of the price
   if (!grepl(.x$path, "sample")) {
