@@ -7,7 +7,7 @@
 #' Use the Weird Gloop API to fetch information about Grand Exchange prices in
 #' Oldschool Runescape
 #'
-#' @param item `character` name of the item
+#' @param items `character` vector of the items
 #' @param history `character` with type of request. Default is "latest", but "all" is
 #' also available
 #' @param user_agent `character` of the user agent
@@ -17,22 +17,39 @@
 #' @export
 #'
 #' @examples
-#' osrs_api(item = "Abyssal_whip", history = "latest")
-osrs_api <- function(item, history = "latest", user_agent = "GE_price_tracker") {
+#' # Get the latest prices of both a bucket and the abyssal whip
+#' bucket_and_whip <- osrs_api(items = c("bucket", "Abyssal whip"), history = "latest")
+#'
+#' # Get the entire price history of the abyssal whip
+#' whip <- osrs_api(items = "Abyssal_whip", history = "all")
+#'
+osrs_api <- function(items, history = "latest", user_agent = "GE_price_tracker") {
 
   # Give valid values of history argument
-  history_valid <- c("latest", "all")
+  history_valid <- c("latest", "all", "last90d", "sample")
   history <- match.arg(history, history_valid)
 
+  # Give error message
+  if (history != "latest") {
+    if (length(items) > 1 || grepl("\\|", items)) {
+      cli::cli_abort('Multiple items only supported for {.code history = "latest"}')
+    }
+  }
+
+  # Ensuring that we use _ to seperate words and make the first letter capital
+  items <- gsub("\\s", "_", trimws(items)) |>
+    stringr::str_to_sentence() |>
+    paste(collapse = "|")
+
   # The the path needed
-  item_path <- paste0("/exchange/history/osrs/", history, "?name=", item)
+  items_path <- paste0("/exchange/history/osrs/", history, "?name=", items)
 
   # Create the full URL
-  url <- httr::modify_url("https://api.weirdgloop.org", path = item_path)
+  url <- httr::modify_url("https://api.weirdgloop.org", path = items_path)
 
   # GET the information from the URL
   resp <- httr::GET(url,
-              httr::user_agent(user_agent))
+                    httr::user_agent(user_agent))
 
   # Check if success
   if (httr::http_status(resp)$category != "Success") {
@@ -69,7 +86,7 @@ osrs_api <- function(item, history = "latest", user_agent = "GE_price_tracker") 
   structure(
     list(
       content = parsed,
-      path = item_path,
+      path = items_path,
       response = resp
     ),
     class = "osrs_api"
@@ -84,7 +101,7 @@ osrs_api <- function(item, history = "latest", user_agent = "GE_price_tracker") 
 #' @export
 #'
 #' @examples
-#' whip <- osrs_api(item = "Abyssal_whip", history = "latest")
+#' whip <- osrs_api(items = "Abyssal_whip", history = "latest")
 #' print(whip)
 print.osrs_api <- function(x, ...) {
   # "condense" the information about response a bit, otherwise the str call goes nuts
