@@ -21,3 +21,4 @@ Imports:
     jsonlite,
     stringr
 VignetteBuilder: knitr
+URL: https://mathiaslj.github.io/osrsAPI/
