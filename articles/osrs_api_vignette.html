@@ -72,58 +72,42 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mathiaslj.github.io/osrsAPI/">osrsAPI</a></span><span class="op">)</span></span></code></pre></div>
-<p>The <code>osrs_api</code> function fetches information on the price
-of some item from the <a href="https://api.weirdgloop.org/" class="external-link">Weird Gloop
-API</a>. An item name can be specified with space and improper
-capitalisation, and an argument can be given to specify how much data is
-requested. A simple call could look like this to get all historical
-price data on the Abyssal whip.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">whip</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/osrs_api.html">osrs_api</a></span><span class="op">(</span><span class="st">"Abyssal whip"</span>, history <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="possible-history-values">Possible <code>history</code> values<a class="anchor" aria-label="anchor" href="#possible-history-values"></a>
 </h3>
 <p>Possible values of <code>history</code> are <em>latest</em>,
 <em>last90d</em>, <em>all</em> or <em>sample</em>. It’s only possible to
-query several items for the <code>latest</code> option. Fx. the
-following will return an error:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bucket_and_whip</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/osrs_api.html">osrs_api</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bucket"</span>, <span class="st">"Abyssal whip"</span><span class="op">)</span>, history <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `osrs_api()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Multiple items only supported for `history = "latest"`</span></span></code></pre></div>
-<p>But the following will work:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bucket_and_whip</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/osrs_api.html">osrs_api</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bucket"</span>, <span class="st">"Abyssal whip"</span><span class="op">)</span>, history <span class="op">=</span> <span class="st">"latest"</span><span class="op">)</span></span></code></pre></div>
+query several items for the <code>latest</code> option.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bucket_and_whip</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_item_data.html">create_item_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bucket"</span>, <span class="st">"Abyssal whip"</span><span class="op">)</span>, history <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bucket_and_whip</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_item_data.html">create_item_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bucket"</span>, <span class="st">"Abyssal whip"</span><span class="op">)</span>, history <span class="op">=</span> <span class="st">"latest"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="extracting-information-into-a-useful-object">Extracting information into a useful object<a class="anchor" aria-label="anchor" href="#extracting-information-into-a-useful-object"></a>
-</h3>
+<div class="section level2">
+<h2 id="extracting-information-into-a-useful-object">Extracting information into a useful object<a class="anchor" aria-label="anchor" href="#extracting-information-into-a-useful-object"></a>
+</h2>
 <p>Use the <code>create_item_data</code> function to extract the item
 information and put into a data set. Fx.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_item_data.html">create_item_data</a></span><span class="op">(</span><span class="va">whip</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3,243 × 6</span></span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">item_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_item_data.html">create_item_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bucket"</span>, <span class="st">"Abyssal whip"</span><span class="op">)</span>, history <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
+<p>Filter the data set</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">item_data</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rel_day</span> <span class="op">&lt;=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 22 × 6</span></span></span>
 <span><span class="co">#&gt;    item         id      price rel_day date       volume</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Abyssal whip 4151  1<span style="text-decoration: underline;">899</span>375       0 2024-04-20   <span style="text-decoration: underline;">6</span>332</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Abyssal whip 4151  1<span style="text-decoration: underline;">901</span>588       1 2024-04-19   <span style="text-decoration: underline;">3</span>676</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Abyssal whip 4151  1<span style="text-decoration: underline;">924</span>803       2 2024-04-18   <span style="text-decoration: underline;">5</span>471</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Abyssal whip 4151  1<span style="text-decoration: underline;">959</span>491       3 2024-04-17   <span style="text-decoration: underline;">6</span>509</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Abyssal whip 4151  1<span style="text-decoration: underline;">976</span>147       4 2024-04-16  <span style="text-decoration: underline;">13</span>050</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Abyssal whip 4151  1<span style="text-decoration: underline;">999</span>665       5 2024-04-15   <span style="text-decoration: underline;">8</span>021</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Abyssal whip 4151  2<span style="text-decoration: underline;">029</span>879       6 2024-04-14   <span style="text-decoration: underline;">9</span>517</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Abyssal whip 4151  2<span style="text-decoration: underline;">018</span>762       7 2024-04-13   <span style="text-decoration: underline;">3</span>019</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Abyssal whip 4151  1<span style="text-decoration: underline;">980</span>217       8 2024-04-12   <span style="text-decoration: underline;">8</span>129</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Abyssal whip 4151  1<span style="text-decoration: underline;">950</span>761       9 2024-04-11   <span style="text-decoration: underline;">6</span>326</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3,233 more rows</span></span></span></code></pre></div>
-<p>and</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_item_data.html">create_item_data</a></span><span class="op">(</span><span class="va">bucket_and_whip</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
-<span><span class="co">#&gt;   item         id      price rel_day date        volume</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Abyssal whip 4151  1<span style="text-decoration: underline;">899</span>375       0 2024-04-20    <span style="text-decoration: underline;">6</span>332</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bucket       1925        6       0 2024-04-20 3<span style="text-decoration: underline;">524</span>268</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Abyssal whip 4151  1<span style="text-decoration: underline;">830</span>704       0 2024-04-23   <span style="text-decoration: underline;">4</span>730</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Abyssal whip 4151  1<span style="text-decoration: underline;">844</span>101       1 2024-04-22   <span style="text-decoration: underline;">5</span>006</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Abyssal whip 4151  1<span style="text-decoration: underline;">853</span>530       2 2024-04-21  <span style="text-decoration: underline;">10</span>618</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Abyssal whip 4151  1<span style="text-decoration: underline;">875</span>130       3 2024-04-20   <span style="text-decoration: underline;">6</span>541</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Abyssal whip 4151  1<span style="text-decoration: underline;">899</span>375       4 2024-04-19   <span style="text-decoration: underline;">6</span>332</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Abyssal whip 4151  1<span style="text-decoration: underline;">901</span>588       5 2024-04-18   <span style="text-decoration: underline;">3</span>676</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Abyssal whip 4151  1<span style="text-decoration: underline;">924</span>803       6 2024-04-17   <span style="text-decoration: underline;">5</span>471</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Abyssal whip 4151  1<span style="text-decoration: underline;">959</span>491       7 2024-04-16   <span style="text-decoration: underline;">6</span>509</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Abyssal whip 4151  1<span style="text-decoration: underline;">976</span>147       8 2024-04-15  <span style="text-decoration: underline;">13</span>050</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Abyssal whip 4151  1<span style="text-decoration: underline;">999</span>665       9 2024-04-14   <span style="text-decoration: underline;">8</span>021</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more rows</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
