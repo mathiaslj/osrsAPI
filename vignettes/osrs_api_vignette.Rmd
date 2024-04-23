@@ -18,36 +18,27 @@ knitr::opts_chunk$set(
 library(osrsAPI)
 ```
 
-The `osrs_api` function fetches information on the price of some item from the [Weird Gloop API](https://api.weirdgloop.org/). An item name can be specified with space and improper capitalisation, and an argument can be given to specify how much data is requested. A simple call could look like this to get all historical price data on the Abyssal whip.
-
-```{r}
-whip <- osrs_api("Abyssal whip", history = "all")
-```
-
 ### Possible `history` values
 
-Possible values of `history` are *latest*, *last90d*, *all* or *sample*. It's only possible to query several items for the `latest` option. Fx. the following will return an error:
-
-```{r error = TRUE}
-bucket_and_whip <- osrs_api(c("bucket", "Abyssal whip"), history = "all")
-```
-
-But the following will work:
+Possible values of `history` are *latest*, *last90d*, *all* or *sample*. It's only possible to query several items for the `latest` option.
 
 ```{r}
+bucket_and_whip <- osrs_api(c("bucket", "Abyssal whip"), history = "all")
+
 bucket_and_whip <- osrs_api(c("bucket", "Abyssal whip"), history = "latest")
 ```
 
-### Extracting information into a useful object
+## Extracting information into a useful object
 
 Use the `create_item_data` function to extract the item information and put into a data set. Fx.
 
 ```{r}
-create_item_data(whip)
+item_data <- create_item_data(c("bucket", "Abyssal whip"), history = "all")
 ```
 
-and
+Filter the data set
 
 ```{r}
-create_item_data(bucket_and_whip)
+item_data |> 
+  dplyr::filter(rel_day <= 10)
 ```

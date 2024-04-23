@@ -9,7 +9,7 @@ osrs_api(items, history = "latest", user_agent = "GE_price_tracker")
 \arguments{
 \item{items}{\code{character} vector of the items}
 
-\item{history}{\code{character} with type of request. Default is "latest", but "all" is
+\item{history}{\code{character} with type of request. Default is \code{latest}, but \code{all} is
 also available}
 
 \item{user_agent}{\code{character} of the user agent}
