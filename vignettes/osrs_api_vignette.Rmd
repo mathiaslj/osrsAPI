@@ -23,9 +23,9 @@ library(osrsAPI)
 Possible values of `history` are *latest*, *last90d*, *all* or *sample*. It's only possible to query several items for the `latest` option.
 
 ```{r}
-bucket_and_whip <- osrs_api(c("bucket", "Abyssal whip"), history = "all")
+bucket_and_whip <- create_item_data(c("bucket", "Abyssal whip"), history = "all")
 
-bucket_and_whip <- osrs_api(c("bucket", "Abyssal whip"), history = "latest")
+bucket_and_whip <- create_item_data(c("bucket", "Abyssal whip"), history = "latest")
 ```
 
 ## Extracting information into a useful object
